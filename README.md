@@ -21,6 +21,8 @@ webpack练习项目
 
 - module:加载loader。对代码进行解析，功能单一，例如ES6、LESS的转换。loader顺序：从右向左执行
 
+- optimization：优化项，优化代码。例如压缩
+
 # 常用插件和loader：
 ### HTML
 
@@ -70,3 +72,21 @@ module.exports = {
 ----
 
 - less-loader：处理less
+
+----
+
+- optimize-css-assets-webpack-plugin：压缩css 用在 optimization
+
+### JS
+
+- UglifyjsPlugin：压缩JS
+
+```
+new UglifyjsPlugin({
+    cache:true, //是否清缓存
+    parallel:true, //并发打包
+    sourceMap:true // 源码映射
+})
+```
+
+- babel: 把高级的JS转换为低级的JS

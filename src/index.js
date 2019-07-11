@@ -4,3 +4,8 @@ console.log(str);
 
 require('./index.css');
 require('./index.less');
+
+let fn = () => {
+    console.log('asd');
+}
+fn();

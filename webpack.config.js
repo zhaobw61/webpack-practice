@@ -1,7 +1,20 @@
 let path = require('path');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 抽离css为单独的文件
+let OptimizeCss = require('optimize-css-assets-webpack-plugin'); //压缩css optimize:优化
+let UglifyjsPlugin= require('uglifyjs-webpack-plugin') //压缩js
+
 module.exports = {
+    optimization:{ // 优化项
+        minimizer:[ // 添加属性后，原本压缩的js就没有压缩了。需要自己安装插件处理
+            new OptimizeCss(), //压缩 css
+            new UglifyjsPlugin({ // 压缩 JS
+                cache:true, //是否清缓存
+                parallel:true, //并发打包
+                sourceMap:true // 源码映射
+            })
+        ]
+    },
     devServer:{ // 开发服务器的配置
         port:3000,
         progress:true,
@@ -36,6 +49,21 @@ module.exports = {
         // loader:用法可以写成字符串 数组 对象
         // 规则 css-loader : 解析 @import这种语法
         rules:[{
+            test:/\.js$/,
+            use:{
+                loader:'babel-loader', // 把ES6转换成ES5
+                options:{
+                    presets:[
+                        '@babel/preset-env'
+                    ],
+                    plugins:[
+                        // '@babel/plugin-proposal-class-properties'
+                        ["@babel/plugin-proposal-decorators",{"legacy":true}],
+                        ["@babel/plugin-proposal-class-properties",{"loose":true}]
+                    ]
+                }
+            }
+        },{
             test:/\.css$/,
             use:[
                 //决定css放的位置
