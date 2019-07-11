@@ -19,4 +19,54 @@ webpack练习项目
 
 - plugins：加载一些特殊功能的插件，来帮你处理文件，例如：压缩html、抽离css为一个单独的文件
 
-- module:加载loader。对代码进行解析，功能单一，例如ES6、LESS的转换。
+- module:加载loader。对代码进行解析，功能单一，例如ES6、LESS的转换。loader顺序：从右向左执行
+
+# 常用插件和loader：
+### HTML
+
+- removeAttributeQuotes：去掉双引号。
+
+- collapseWhitespace：压缩HTML
+
+### CSS 
+
+- MiniCssExtractPlugin：抽离css为单独的文件。
+
+```
+// 在plugin里声明，然后在module里调用
+plugins:[
+    new MiniCssExtractPlugin({
+        filename:'main.css' // 打包后文件的名字
+    })
+]
+module:{
+    rules:[{
+        test:/\.css$/,
+        use:[
+            MiniCssExtractPlugin.loader
+        ]
+    }]
+}
+```
+----
+
+- css-loader：解析css
+
+----
+
+- postcss-loader：给css加前缀
+
+>需要配置一个postcss.config.js
+
+```
+//postcss.config.js
+module.exports = {
+    plugins:[require('autoprefixer')]
+}
+```
+
+#### postcss-loader要用在css-loader前面
+
+----
+
+- less-loader：处理less
