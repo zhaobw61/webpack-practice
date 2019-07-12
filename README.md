@@ -19,7 +19,7 @@ webpack练习项目
 
 - plugins：加载一些特殊功能的插件，来帮你处理文件，例如：压缩html、抽离css为一个单独的文件
 
-- module:加载loader。对代码进行解析，功能单一，例如ES6、LESS的转换。loader顺序：从右向左执行
+- module:加载loader。对代码进行解析，功能单一，例如ES6、LESS的转换。loader顺序：从右向左执行 从下到上
 
 - optimization：优化项，优化代码。例如压缩
 
@@ -90,3 +90,5 @@ new UglifyjsPlugin({
 ```
 
 - babel: 把高级的JS转换为低级的JS
+
+- eslint-loader：校验JS是否规范

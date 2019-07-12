@@ -44,11 +44,21 @@ module.exports = {
     ],
     module:{ // 模块
         //loader：对原来的代码进行解析，功能单一
-        //loader顺序：从右向左执行
+        //loader顺序：从右向左执行，从下到上
         // style-loader 他是把css插入到head的标签中
         // loader:用法可以写成字符串 数组 对象
         // 规则 css-loader : 解析 @import这种语法
-        rules:[{
+        rules:[
+        // {
+        //     test:/\.js$/,
+        //     use:{
+        //         loader:'eslint-loader', // 检测js规范
+        //         options:{
+        //             enforce:'pre' // 提前执行 previous
+        //         }
+        //     }
+        // },
+        {
             test:/\.js$/,
             use:{
                 loader:'babel-loader', // 把ES6转换成ES5
@@ -59,10 +69,13 @@ module.exports = {
                     plugins:[
                         // '@babel/plugin-proposal-class-properties'
                         ["@babel/plugin-proposal-decorators",{"legacy":true}],
-                        ["@babel/plugin-proposal-class-properties",{"loose":true}]
+                        ["@babel/plugin-proposal-class-properties",{"loose":true}],
+                        ["@babel/plugin-transform-runtime"]
                     ]
                 }
-            }
+            },
+            include:path.resolve(__dirname,'src'), // 包含的文件
+            exclude:/node_modules/ // 排除的文件
         },{
             test:/\.css$/,
             use:[
