@@ -1,11 +1,12 @@
-let str = require('./a.js');
+// let str = require('./a.js');
 
-console.log(str);
+// console.log(str);
 
-require('./index.css');
-require('./index.less');
+// require('./index.css');
+// require('./index.less');
 
-let fn = () => {
-    console.log('asd');
-}
-fn();
+// let fn = () => {
+//     console.log('asd');
+// }
+// fn();
+import $ from 'expose-loader?$!jquery'

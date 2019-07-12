@@ -3,6 +3,7 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 let MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 抽离css为单独的文件
 let OptimizeCss = require('optimize-css-assets-webpack-plugin'); //压缩css optimize:优化
 let UglifyjsPlugin= require('uglifyjs-webpack-plugin') //压缩js
+let webpack = require('webpack');
 
 module.exports = {
     optimization:{ // 优化项
@@ -40,15 +41,27 @@ module.exports = {
         // 抽离css
         new MiniCssExtractPlugin({
             filename:'main.css'
+        }),
+        new webpack.ProvidePlugin({ // 在每个模块里都注入$ 但是不是全局的 $
+            $:'jquery'
         })
     ],
+    externals:{ // 引入的不进行打包
+        jquery:'$'
+    },
     module:{ // 模块
         //loader：对原来的代码进行解析，功能单一
         //loader顺序：从右向左执行，从下到上
         // style-loader 他是把css插入到head的标签中
         // loader:用法可以写成字符串 数组 对象
         // 规则 css-loader : 解析 @import这种语法
+
         rules:[
+        // {
+        //     test:require.resolve('jquery'), 
+        //     use:'expose-loader?$' // 把变量变为全局的变量
+        // },
+
         // {
         //     test:/\.js$/,
         //     use:{

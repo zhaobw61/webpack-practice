@@ -19,7 +19,9 @@ webpack练习项目
 
 - plugins：加载一些特殊功能的插件，来帮你处理文件，例如：压缩html、抽离css为一个单独的文件
 
-- module:加载loader。对代码进行解析，功能单一，例如ES6、LESS的转换。loader顺序：从右向左执行 从下到上
+- module:加载loader。对代码进行解析，功能单一，例如ES6、LESS的转换。loader顺序：从右向左执行 从下到上。
+
+> loader有4个类型：前置、普通、内联：把loader配置到代码里、后置
 
 - optimization：优化项，优化代码。例如压缩
 
@@ -92,3 +94,32 @@ new UglifyjsPlugin({
 - babel: 把高级的JS转换为低级的JS
 
 - eslint-loader：校验JS是否规范
+
+- expose-loader：把引入的模块暴露到window上
+
+> 举例：如果需要在window上挂载到window上。
+- (1)用expose-loader
+
+```
+{
+    test:require.resolve('jquery'), 
+    use:'expose-loader?$'
+},
+```
+
+- (2)ProvidePlugin：给每个页面提供一个$
+
+```
+new webpack.ProvidePlugin({ 
+    $:'jquery'
+})
+```
+
+- (3)引入不打包
+
+```
+externals:{
+    jquery:'$'
+},
+```
+
