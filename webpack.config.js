@@ -72,6 +72,26 @@ module.exports = {
         //     }
         // },
         {
+            test:/\.html$/,
+            use:'html-withimg-loader'
+        },
+        // {
+        //     test:/\.(png|jpg|gif)$/,
+        //     use:'file-loader'
+        // },
+        {
+            test:/\.(png|jpg|gif)$/,
+            // 做一个限制 当图片小于多少k的时候用base64来转化 可以减少请求
+            // 否则用file-loader来产生真实的图片
+            use:{
+                loader:'url-loader',
+                options:{
+                    limit:200*1024
+                }
+            },
+            
+        },
+        {
             test:/\.js$/,
             use:{
                 loader:'babel-loader', // 把ES6转换成ES5

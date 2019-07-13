@@ -122,4 +122,38 @@ externals:{
     jquery:'$'
 },
 ```
+### 图片
 
+- 图片应用场景：
+
+1) 在js中创建图片来引入
+
+```
+{
+    test:/\.(png|jpg|gif)$/,
+    use:'file-loader'
+}
+```
+2) 在css引入background('url')
+和第一种一样，可以处理
+3) <img src="", alt=""> 
+```
+{
+    test:/\.html$/,
+    use:'html-withimg-loader'
+}
+```
+4)对于体积小的图片可以转化为base64
+>做一个限制 当图片小于多少k的时候用base64来转化 可以减少请求。否则用file-loader来产生真实的图片
+```
+{
+    test:/\.(png|jpg|gif)$/,
+    use:{
+        loader:'url-loader',
+        options:{
+            limit:200*1024
+        }
+    },
+    
+}
+```
